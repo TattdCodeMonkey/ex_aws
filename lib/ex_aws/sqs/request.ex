@@ -14,7 +14,7 @@ defmodule ExAws.SQS.Request do
 
   def parse({:error, result}, _), do: {:error, result}
   def parse({:ok, body}, config) do
-    case config[:json_codec].decode(body) do
+    case config[:xml_codec].parse(body) do
       {:ok, result} -> {:ok, result}
       {:error, _} -> {:error, body}
     end
@@ -22,7 +22,7 @@ defmodule ExAws.SQS.Request do
 
   def url(config, queue_name, params) do
     # https://sqs.[region].amazonaws.com/[account_id]/[queue_name]?
-    # Action=[action]&  
+    # Action=[action]&
     ""
   end
 end
